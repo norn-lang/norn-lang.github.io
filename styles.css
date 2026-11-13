@@ -264,7 +264,7 @@ time {
 
 .hero h1 {
   max-width: 13.5em;
-  font-size: clamp(40px, 6.3vw, 82px);
+  font-size: clamp(44px, 8.4vw, 112px);
   font-weight: 600;
   line-height: 1.02;
   letter-spacing: -0.045em;
@@ -273,8 +273,8 @@ time {
 
 .hero-lede {
   max-width: 34em;
-  margin-top: 36px;
-  font-size: 21px;
+  margin-top: 32px;
+  font-size: 24px;
   line-height: 1.45;
   color: var(--ink-2);
 }
