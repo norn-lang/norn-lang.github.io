@@ -1,0 +1,960 @@
+/*
+ * norn-lang.org. The colours are the playground's: the natural colours of
+ * Shetland sheep, whose names come from the Norn language. Shaela (dark
+ * grey) is ink, moorit (reddish brown) marks times, mioget (light yellowish
+ * brown) marks what is waited on, and woad blue marks participants and links.
+ */
+
+@font-face {
+  font-family: "Familjen Grotesk";
+  src: url("/fonts/familjen-grotesk-latin-wght-normal.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Commit Mono";
+  src: url("/fonts/commit-mono-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Commit Mono";
+  src: url("/fonts/commit-mono-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --ground: #fafaf8;
+  --slip: #f1f2ee;
+  --ink: #22252a;
+  --ink-2: #4b5159;
+  --ink-3: #686e77;
+  --rule: #e3e5e0;
+  --thread: #c9ccc6;
+  --woad: #2f5e8e;
+  --moorit: #8c5a3b;
+  --orchil: #77477c;
+  --string: #3a6a50;
+  --madder: #b0392c;
+  --lichen: #3c6b45;
+  --mioget: #f3ead4;
+  --mioget-ink: #4f3c15;
+  --shaela: #22252a;
+  --shaela-ink: #e4e5e1;
+  --shaela-ink-2: #aab0b7;
+  --shaela-rule: #3a3f45;
+  --shaela-code: #dca581;
+
+  --sans: "Familjen Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "Commit Mono", ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Code", Menlo, Consolas, monospace;
+  --gutter: 28px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #16181b;
+    --slip: #1d2024;
+    --ink: #e4e5e1;
+    --ink-2: #c0c4c9;
+    --ink-3: #959ba3;
+    --rule: #2b2f34;
+    --thread: #3a3f45;
+    --woad: #93b7df;
+    --moorit: #dca581;
+    --orchil: #cfa4d4;
+    --string: #a2ccb0;
+    --madder: #f0907f;
+    --lichen: #95c89c;
+    --mioget: #2f2919;
+    --mioget-ink: #e8cc8c;
+    --shaela: #1d2024;
+    --shaela-rule: #33383e;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #16181b;
+  --slip: #1d2024;
+  --ink: #e4e5e1;
+  --ink-2: #c0c4c9;
+  --ink-3: #959ba3;
+  --rule: #2b2f34;
+  --thread: #3a3f45;
+  --woad: #93b7df;
+  --moorit: #dca581;
+  --orchil: #cfa4d4;
+  --string: #a2ccb0;
+  --madder: #f0907f;
+  --lichen: #95c89c;
+  --mioget: #2f2919;
+  --mioget-ink: #e8cc8c;
+  --shaela: #1d2024;
+  --shaela-rule: #33383e;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 18px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+fieldset,
+table {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--woad);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--woad);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+code,
+pre,
+time {
+  font-family: var(--mono);
+  font-size: 0.86em;
+}
+
+.wrap {
+  max-width: 1236px;
+  margin-inline: auto;
+  padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right));
+}
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 2;
+  padding: 8px 14px;
+  background: var(--ink);
+  color: var(--ground);
+  border-radius: 8px;
+}
+
+.skip:focus {
+  top: 12px;
+}
+
+/* The top row */
+
+.top-row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  height: 72px;
+}
+
+.wordmark {
+  display: block;
+  height: 24px;
+  width: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  overflow: visible;
+}
+
+.brand {
+  color: var(--ink);
+  padding: 8px 0;
+}
+
+.top-nav {
+  display: flex;
+  gap: 26px;
+  margin-left: auto;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.top-nav a,
+.foot-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.top-nav a:hover,
+.foot-nav a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.theme {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-right: -8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.theme:hover {
+  background: var(--slip);
+  color: var(--ink);
+}
+
+.theme svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+
+.theme svg path {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* The opening */
+
+.hero {
+  padding: 56px 0 104px;
+}
+
+.hero h1 {
+  max-width: 13.5em;
+  font-size: clamp(42px, 7.1vw, 92px);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.hero-lede {
+  max-width: 34em;
+  margin-top: 36px;
+  font-size: 21px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.button {
+  display: inline-block;
+  padding: 13px 24px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--slip);
+}
+
+.button-primary {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+.button-primary:hover {
+  background: var(--woad);
+  border-color: var(--woad);
+}
+
+.hero-status {
+  margin-top: 22px;
+  font-size: 15px;
+  color: var(--ink-3);
+}
+
+/* The four recorded runs */
+
+.sim {
+  margin-top: 84px;
+  border-radius: 20px;
+  background: var(--slip);
+  padding: 36px 40px 30px;
+}
+
+.sim-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px 40px;
+}
+
+.sim-head h2 {
+  font-size: clamp(27px, 3.2vw, 40px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.sim-choice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border: 0;
+  min-width: 0;
+}
+
+.sim-choice legend {
+  padding: 0 0 10px;
+  font-size: 15px;
+  color: var(--ink-3);
+}
+
+.sim-choice label {
+  position: relative;
+  cursor: pointer;
+}
+
+.sim-choice input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.sim-choice span {
+  display: block;
+  padding: 8px 16px;
+  border: 1.5px solid var(--thread);
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.sim-choice label:hover span {
+  border-color: var(--ink-3);
+}
+
+.sim-choice input:checked + span {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ground);
+}
+
+.sim-choice input:focus-visible + span {
+  outline: 2px solid var(--woad);
+  outline-offset: 3px;
+}
+
+.sim-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 316px;
+  gap: 36px;
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid var(--thread);
+}
+
+.sim-foot {
+  margin-top: 28px;
+  font-size: 15px;
+  color: var(--ink-3);
+}
+
+/* Code */
+
+.code {
+  margin: 0;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.7;
+  tab-size: 2;
+  color: var(--ink);
+}
+
+.code code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  font-size: inherit;
+}
+
+.ln {
+  display: block;
+  min-height: 1.7em;
+  padding-inline: 12px;
+  margin-inline: -12px;
+  border-radius: 6px;
+  white-space: pre;
+}
+
+.sim-code {
+  font-size: 13.5px;
+  padding-inline: 12px;
+  margin-inline: -12px;
+  align-self: start;
+}
+
+.tok-comment { color: var(--ink-3); }
+.tok-keyword,
+.tok-effect { font-weight: 700; }
+.tok-bool,
+.tok-constructor { color: var(--orchil); }
+.tok-string { color: var(--string); }
+.tok-interpolation,
+.tok-operator { color: var(--ink-3); }
+.tok-number,
+.tok-time { color: var(--moorit); }
+.tok-participant,
+.tok-ref { color: var(--woad); }
+.tok-type,
+.tok-typeVar,
+.tok-label { color: var(--ink-2); }
+
+/* The branch the chosen run took. Line 4 takes both a yes and the deadline. */
+.sim:has(#sim-none:checked) .sim-code .ln:nth-child(4),
+.sim:has(#sim-yes:checked) .sim-code .ln:nth-child(4),
+.sim:has(#sim-no:checked) .sim-code .ln:nth-child(5),
+.sim:has(#sim-refuse:checked) .sim-code .ln:nth-child(6) {
+  background: var(--mioget);
+  box-shadow: inset 3px 0 0 var(--moorit);
+}
+
+/* What happened, as a thread with a knot at each event */
+
+.story {
+  display: none;
+  list-style: none;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.story[data-sim="none"],
+.sim:has(#sim-yes:checked) .story[data-sim="yes"],
+.sim:has(#sim-no:checked) .story[data-sim="no"],
+.sim:has(#sim-refuse:checked) .story[data-sim="refuse"] {
+  display: block;
+}
+
+.sim:has(input:not(#sim-none):checked) .story[data-sim="none"] {
+  display: none;
+}
+
+.story li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 0 26px;
+  padding-bottom: 16px;
+}
+
+.story li::before {
+  content: "";
+  position: absolute;
+  left: 58px;
+  top: 0.7em;
+  bottom: -0.7em;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--thread);
+}
+
+.story li:last-child::before {
+  display: none;
+}
+
+.story li::after {
+  content: "";
+  position: absolute;
+  left: 58px;
+  top: 0.7em;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--ink-3);
+  box-shadow: 0 0 0 3px var(--slip);
+}
+
+.story time {
+  font-size: 13px;
+  line-height: 22.4px;
+  color: var(--moorit);
+}
+
+.story small {
+  display: block;
+  font-size: 14px;
+  color: var(--ink-3);
+}
+
+.story code {
+  color: var(--orchil);
+}
+
+.who {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  font-weight: 400;
+  color: var(--woad);
+}
+
+.story .ev-wait {
+  color: var(--ink-3);
+}
+
+.story .ev-wait::after {
+  background: var(--slip);
+  box-shadow: 0 0 0 3px var(--slip), inset 0 0 0 2px var(--thread);
+}
+
+.story .ev-deadline::after { background: var(--moorit); }
+.story .ev-good::after { background: var(--lichen); }
+.story .ev-bad::after { background: var(--madder); }
+
+.story .ev-end {
+  padding-bottom: 0;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.story .ev-end time {
+  visibility: hidden;
+}
+
+.story .ev-end code {
+  font-weight: 400;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .story li {
+    animation: knot 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .story li:nth-child(2) { animation-delay: 0.05s; }
+  .story li:nth-child(3) { animation-delay: 0.1s; }
+  .story li:nth-child(4) { animation-delay: 0.15s; }
+  .story li:nth-child(5) { animation-delay: 0.2s; }
+  .story li:nth-child(6) { animation-delay: 0.25s; }
+
+  @keyframes knot {
+    from { opacity: 0; transform: translateY(-6px); }
+  }
+}
+
+/* Bands */
+
+.band {
+  padding: 104px 0;
+}
+
+.band-title {
+  font-size: clamp(34px, 4.6vw, 58px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.band h3 {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.band-lede {
+  max-width: 38em;
+  margin-top: 24px;
+  font-size: 21px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.band-dark {
+  background: var(--shaela);
+  color: var(--shaela-ink);
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px;
+  margin-top: 56px;
+}
+
+.pillar h3 {
+  padding-top: 20px;
+  border-top: 3px solid var(--shaela-ink);
+}
+
+.pillar p {
+  margin-top: 14px;
+  color: var(--shaela-ink-2);
+}
+
+.replies {
+  margin-top: 88px;
+}
+
+.replies table {
+  width: 100%;
+  margin-top: 22px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.replies th,
+.replies td {
+  padding: 13px 28px 13px 0;
+  border-top: 1px solid var(--shaela-rule);
+  vertical-align: baseline;
+  font-weight: 400;
+}
+
+.replies thead th {
+  border-top: 0;
+  padding-bottom: 10px;
+  font-size: 15px;
+  color: var(--shaela-ink-2);
+}
+
+.replies tbody th {
+  width: 24%;
+  white-space: nowrap;
+}
+
+.replies tbody td:nth-child(2) {
+  width: 22%;
+  color: var(--shaela-ink-2);
+}
+
+.replies code {
+  color: var(--shaela-code);
+}
+
+.replies tbody th code {
+  font-size: 16px;
+}
+
+/* Programs by situation */
+
+.case {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 9fr);
+  gap: 56px;
+  margin-top: 64px;
+  padding-top: 36px;
+  border-top: 1px solid var(--rule);
+}
+
+.case-text p {
+  margin-top: 12px;
+  color: var(--ink-2);
+}
+
+.case-text code {
+  color: var(--orchil);
+}
+
+.case-link {
+  display: inline-block;
+  margin-top: 16px;
+  font-weight: 600;
+}
+
+.case .code {
+  align-self: start;
+  padding: 22px 24px;
+  border-radius: 14px;
+  background: var(--slip);
+}
+
+.case .ln {
+  padding-inline: 0;
+  margin-inline: 0;
+}
+
+/* How it fits */
+
+.band-wool {
+  background: var(--mioget);
+  color: var(--mioget-ink);
+}
+
+.band-wool a {
+  color: inherit;
+}
+
+.fits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 44px 72px;
+  margin-top: 52px;
+}
+
+.fits p {
+  max-width: 32em;
+  margin-top: 10px;
+}
+
+/* Where to go next */
+
+.learn {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px;
+  margin-top: 52px;
+}
+
+.learn-col h3 {
+  padding-bottom: 14px;
+  border-bottom: 3px solid var(--ink);
+}
+
+.learn-col ul {
+  list-style: none;
+}
+
+.learn-col li {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.learn-col li > a {
+  font-weight: 600;
+}
+
+.learn-col span {
+  display: block;
+  margin-top: 4px;
+  font-size: 16px;
+  color: var(--ink-2);
+}
+
+.name {
+  max-width: 40em;
+  margin-top: 104px;
+}
+
+.name h2 {
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.name p {
+  margin-top: 12px;
+  color: var(--ink-2);
+}
+
+/* The foot */
+
+.foot {
+  padding: 40px 0 max(40px, env(safe-area-inset-bottom));
+  background: var(--shaela);
+  color: var(--shaela-ink);
+}
+
+.foot-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 40px;
+}
+
+.foot-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  font-size: 16px;
+}
+
+/* The page that is not there */
+
+.lost {
+  min-height: calc(100vh - 72px);
+  min-height: calc(100dvh - 72px);
+  padding: 72px 0 104px;
+}
+
+.lost h1 {
+  max-width: 12em;
+  font-size: clamp(42px, 7.1vw, 92px);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.lost p {
+  max-width: 30em;
+  margin-top: 28px;
+  font-size: 21px;
+  color: var(--ink-2);
+}
+
+@media (max-width: 1040px) {
+  .sim-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .case {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .case-text {
+    max-width: 36em;
+  }
+}
+
+@media (max-width: 820px) {
+  :root {
+    --gutter: 20px;
+  }
+
+  body {
+    font-size: 17px;
+  }
+
+  .top-nav a[href^="#"] {
+    display: none;
+  }
+
+  .top-row {
+    gap: 18px;
+    height: 64px;
+  }
+
+  .top-nav {
+    gap: 20px;
+  }
+
+  .hero {
+    padding: 32px 0 72px;
+  }
+
+  .hero-lede,
+  .band-lede {
+    font-size: 19px;
+  }
+
+  .sim {
+    margin-top: 56px;
+    margin-inline: calc(var(--gutter) * -1 + 8px);
+    padding: 26px calc(var(--gutter) - 8px) 24px;
+    border-radius: 16px;
+  }
+
+  .band {
+    padding: 72px 0;
+  }
+
+  .pillars,
+  .learn,
+  .fits {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+    margin-top: 40px;
+  }
+
+  .replies {
+    margin-top: 64px;
+  }
+
+  .replies thead {
+    display: none;
+  }
+
+  .replies tr {
+    display: block;
+    padding: 14px 0;
+    border-top: 1px solid var(--shaela-rule);
+  }
+
+  .replies th,
+  .replies td {
+    display: inline;
+    padding: 0;
+    border: 0;
+  }
+
+  .replies tbody th {
+    display: block;
+    width: auto;
+  }
+
+  .replies tbody td:nth-child(2)::after {
+    content: ": ";
+  }
+
+  .case {
+    margin-top: 48px;
+    padding-top: 28px;
+  }
+
+  .case .code {
+    margin-inline: calc(var(--gutter) * -1 + 8px);
+    padding: 18px calc(var(--gutter) - 8px);
+    font-size: 13px;
+  }
+
+  .code {
+    font-size: 13px;
+  }
+
+  .name {
+    margin-top: 72px;
+  }
+}

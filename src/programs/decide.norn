@@ -1,0 +1,7 @@
+// A decision with a declared default. Only the request's own deadline takes
+// the recommendation: a refusal is not consent.
+switch confirm(@alice, "Ship the billing probe?", ~by=2026-11-07T12:00Z)->wait {
+| Answered(Yes) | NoReply => run(@auto, "Ship it as recommended: at most US$0.10")->wait
+| Answered(No) => run(@auto, "Record the decision: don't ship")->wait
+| other => fail(other)
+}
