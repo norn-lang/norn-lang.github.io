@@ -435,7 +435,7 @@ time {
   min-height: 1.7em;
   padding-inline: 12px;
   margin-inline: -12px;
-  border-radius: 6px;
+  border-radius: 4px;
   white-space: pre;
 }
 
@@ -468,6 +468,7 @@ time {
 .sim:has(#sim-no:checked) .sim-code .ln:nth-child(5),
 .sim:has(#sim-refuse:checked) .sim-code .ln:nth-child(6) {
   background: var(--mioget);
+  border-radius: 0;
   box-shadow: inset 3px 0 0 var(--moorit);
 }
 
