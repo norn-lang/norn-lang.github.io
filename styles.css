@@ -462,14 +462,20 @@ time {
 .tok-typeVar,
 .tok-label { color: var(--ink-2); }
 
-/* The branch the chosen run took. Line 4 takes both a yes and the deadline. */
-.sim:has(#sim-none:checked) .sim-code .ln:nth-child(4),
-.sim:has(#sim-yes:checked) .sim-code .ln:nth-child(4),
-.sim:has(#sim-no:checked) .sim-code .ln:nth-child(5),
-.sim:has(#sim-refuse:checked) .sim-code .ln:nth-child(6) {
-  background: var(--mioget);
-  border-radius: 0;
-  box-shadow: inset 3px 0 0 var(--moorit);
+/*
+ * The branch the chosen run took stays in full ink and the other two fade.
+ * Nothing is drawn on the code, so its alignment is untouched. Line 4 takes
+ * both a yes and the deadline.
+ */
+.sim-code .ln {
+  transition: opacity 0.2s ease;
+}
+
+.sim:has(#sim-none:checked) .sim-code .ln:is(:nth-child(5), :nth-child(6)),
+.sim:has(#sim-yes:checked) .sim-code .ln:is(:nth-child(5), :nth-child(6)),
+.sim:has(#sim-no:checked) .sim-code .ln:is(:nth-child(4), :nth-child(6)),
+.sim:has(#sim-refuse:checked) .sim-code .ln:is(:nth-child(4), :nth-child(5)) {
+  opacity: 0.4;
 }
 
 /* What happened, as a thread with a knot at each event */
