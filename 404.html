@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Page not found: Norn</title>
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script>
+    try {
+      const theme = localStorage.getItem("norn-theme");
+      if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+    } catch {}
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="/" aria-label="Norn home">
+        <svg class="wordmark" viewBox="0 2.6 56 16.8" aria-hidden="true">
+          <path d="M1.2 17V10a5 5 0 0 1 10 0v7M44 17V10a5 5 0 0 1 10 0v7M34.4 17V10a5 5 0 0 1 5-5"/>
+          <circle cx="22.8" cy="11" r="6.1"/>
+        </svg>
+      </a>
+      <nav class="top-nav" aria-label="Site">
+        <a href="/norn/">Playground</a>
+        <a href="https://github.com/norn-lang/norn">GitHub</a>
+      </nav>
+    </div>
+  </header>
+  <main class="lost">
+    <div class="wrap">
+      <h1>NoReply: nothing is at this address.</h1>
+      <p>The page may have moved, or the link was cut short. Start again from the <a href="/">home page</a>, or open the <a href="/norn/">playground</a>.</p>
+    </div>
+  </main>
+</body>
+</html>

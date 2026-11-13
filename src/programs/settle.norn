@@ -1,0 +1,11 @@
+// Two agents settle a design between themselves. The reviewer is asked for
+// exactly Sound, or Flawed with the reason: a run reports the type the
+// program uses its report as.
+type verdict = Sound | Flawed(string)
+
+let rec settle = draft =>
+  switch run(@codex, "Find what does not hold in this design", ~about=draft)->wait? {
+  | Sound => Answered(draft)
+  | Flawed(why) => settle(run(@claude, "Revise the design", ~about=draft, ~context=why)->wait?)
+  }
+settle(run(@claude, "Draft the design for request identity")->wait?)

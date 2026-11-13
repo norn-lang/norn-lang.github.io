@@ -1,0 +1,28 @@
+# The programs on the page must pass `norn check`, and the committed
+# index.html must be what tools/build.ts makes from src.
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
+        with:
+          repository: norn-lang/norn
+          path: .norn
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm ci
+        working-directory: .norn
+      - run: node tools/build.ts --norn .norn
+      - run: git diff --exit-code -- index.html
