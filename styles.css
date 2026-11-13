@@ -36,6 +36,7 @@
   --ink: #22252a;
   --ink-2: #4b5159;
   --ink-3: #686e77;
+  --ink-4: #a2a7ad;
   --rule: #e3e5e0;
   --thread: #c9ccc6;
   --woad: #2f5e8e;
@@ -65,6 +66,7 @@
     --ink: #e4e5e1;
     --ink-2: #c0c4c9;
     --ink-3: #959ba3;
+  --ink-4: #646a72;
     --rule: #2b2f34;
     --thread: #3a3f45;
     --woad: #93b7df;
@@ -87,6 +89,7 @@
   --ink: #e4e5e1;
   --ink-2: #c0c4c9;
   --ink-3: #959ba3;
+  --ink-4: #646a72;
   --rule: #2b2f34;
   --thread: #3a3f45;
   --woad: #93b7df;
@@ -435,7 +438,6 @@ time {
   min-height: 1.7em;
   padding-inline: 12px;
   margin-inline: -12px;
-  border-radius: 4px;
   white-space: pre;
 }
 
@@ -463,19 +465,37 @@ time {
 .tok-label { color: var(--ink-2); }
 
 /*
- * The branch the chosen run took stays in full ink and the other two fade.
- * Nothing is drawn on the code, so its alignment is untouched. Line 4 takes
- * both a yes and the deadline.
+ * The hero's code is set as an editor sets it: a gutter of line numbers, and
+ * the branch the chosen run took shown as the active line. The gutter is
+ * there on every line, so the code keeps one left edge. Line 4 takes both a
+ * yes and the deadline.
  */
-.sim-code .ln {
-  transition: opacity 0.2s ease;
+.sim-code code {
+  counter-reset: line;
 }
 
-.sim:has(#sim-none:checked) .sim-code .ln:is(:nth-child(5), :nth-child(6)),
-.sim:has(#sim-yes:checked) .sim-code .ln:is(:nth-child(5), :nth-child(6)),
-.sim:has(#sim-no:checked) .sim-code .ln:is(:nth-child(4), :nth-child(6)),
-.sim:has(#sim-refuse:checked) .sim-code .ln:is(:nth-child(4), :nth-child(5)) {
-  opacity: 0.4;
+.sim-code .ln::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1ch;
+  margin-right: 2.5ch;
+  text-align: right;
+  color: var(--ink-4);
+}
+
+.sim:has(#sim-none:checked) .sim-code .ln:nth-child(4),
+.sim:has(#sim-yes:checked) .sim-code .ln:nth-child(4),
+.sim:has(#sim-no:checked) .sim-code .ln:nth-child(5),
+.sim:has(#sim-refuse:checked) .sim-code .ln:nth-child(6) {
+  background: var(--mioget);
+}
+
+.sim:has(#sim-none:checked) .sim-code .ln:nth-child(4)::before,
+.sim:has(#sim-yes:checked) .sim-code .ln:nth-child(4)::before,
+.sim:has(#sim-no:checked) .sim-code .ln:nth-child(5)::before,
+.sim:has(#sim-refuse:checked) .sim-code .ln:nth-child(6)::before {
+  color: var(--ink);
 }
 
 /* What happened, as a thread with a knot at each event */
