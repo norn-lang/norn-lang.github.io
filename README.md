@@ -27,5 +27,5 @@ by hand. `llms.txt` is a copy of the one in the language repository.
 ## License
 
 The site is [Apache-2.0](https://github.com/norn-lang/norn/blob/main/LICENSE),
-like the language. The typefaces in `fonts` are Familjen Grotesk and Commit
+like the language. The typefaces in `fonts` are Geist and Commit
 Mono, each under the SIL Open Font License; their licenses are beside them.
