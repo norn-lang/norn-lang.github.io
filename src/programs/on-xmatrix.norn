@@ -1,0 +1,7 @@
+// An agent drafts, a person decides, and silence is not a yes.
+let notes = run(@claude, "Draft the release notes for 2.4")->wait?
+switch confirm(@alice, "Publish these notes?", ~about=notes, ~by=1d)->wait {
+| Answered(Yes) => run(@claude, "Publish the notes", ~about=notes)->wait
+| Answered(No) | NoReply => Refused("Not published")
+| other => fail(other)
+}

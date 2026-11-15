@@ -774,6 +774,63 @@ time {
   margin-top: 10px;
 }
 
+/* Running on a host */
+
+.band-slip {
+  background: var(--slip);
+}
+
+.band-slip .case {
+  margin-top: 56px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.band-slip .case .code {
+  background: var(--ground);
+}
+
+.fence {
+  color: var(--ink-3);
+}
+
+.run-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.band-slip .button:hover {
+  background: var(--ground);
+}
+
+.band-slip .button-primary:hover {
+  background: var(--woad);
+}
+
+.case-text .run-note,
+.run-foot {
+  font-size: 15px;
+  color: var(--ink-3);
+}
+
+.band-slip .fits {
+  margin-top: 72px;
+}
+
+.band-slip .fits p {
+  color: var(--ink-2);
+}
+
+.band-slip .fits code {
+  color: var(--orchil);
+}
+
+.run-foot {
+  margin-top: 48px;
+}
+
 /* Where to go next */
 
 .learn {
