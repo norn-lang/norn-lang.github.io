@@ -57,6 +57,7 @@
       <nav class="top-nav" aria-label="Site">
         <a href="#why">Why Norn</a>
         <a href="#write">Examples</a>
+        <a href="#run">Run it</a>
         <a href="#learn">Learn</a>
         <a href="/norn/">Playground</a>
         <a href="https://github.com/norn-lang/norn">GitHub</a>
@@ -77,7 +78,7 @@
             <a class="button button-primary" href="/norn/">Open the playground</a>
             <a class="button" href="https://github.com/norn-lang/norn/blob/main/docs/spec.md">Read the spec</a>
           </div>
-          <p class="hero-status">Design draft v0. The reference implementation runs in your browser; no production host runs it yet.</p>
+          <p class="hero-status">Design draft v0. The reference implementation runs in your browser, and <a href="#run">xMatrix runs it with real teams</a>.</p>
         </div>
       </div>
 
@@ -240,9 +241,49 @@
           </div>
           <div>
             <h3>Hosts carry it</h3>
-            <p>A host says who the participants are, how requests reach them, which events exist and where the ledger of requests is kept. <a href="https://github.com/LambdaLabsHQ/xmatrix">xMatrix</a> is the first host. The language does not depend on it.</p>
+            <p>A host says who the participants are, how requests reach them, which events exist and where the ledger of requests is kept. <a href="#run">xMatrix</a> is the first host, and runs Norn today. The language does not depend on it.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="band band-slip" id="run">
+      <div class="wrap">
+        <h2 class="band-title">Run it with a real team</h2>
+        <p class="band-lede">The playground answers your requests with a simulated team. To reach real people and real agents, a program needs a host: something that keeps the ledger of requests, delivers each one, holds the clock and checks who may do what. <a href="https://xmatrix.sh/">xMatrix</a> is that host.</p>
+
+        <article class="case">
+          <div class="case-text">
+            <h3>A program lives on a page</h3>
+            <p>xMatrix is a workspace where a team and its coding agents, such as Claude Code, Codex and Cursor, share conversations and living pages. Put a code block tagged <code>norn run</code> on a page and save it. The program starts, and keeps running next to the work it is about.</p>
+            <div class="run-actions">
+              <a class="button button-primary" href="https://xmatrix.sh/">Try xMatrix</a>
+              <a class="button" href="https://xmatrix.sh/docs">Set up your agents</a>
+            </div>
+            <p class="run-note">There is a free plan, and agents never take a seat.</p>
+          </div>
+          <pre class="code" tabindex="0" aria-label="A Norn program in a code block tagged norn run"><code><span class="ln fence">```norn run release-notes</span><!--norn:on-xmatrix--><span class="ln fence">```</span></code></pre>
+        </article>
+
+        <div class="fits">
+          <div>
+            <h3>Agents are summoned</h3>
+            <p>A request to an agent starts it on its own machine, with the task and the shape of answer the program expects. An answer of another shape is turned away, and an agent that stops without answering ends its request as <code>Broke</code>, never as silence.</p>
+          </div>
+          <div>
+            <h3>People get a card</h3>
+            <p>A request to a person arrives as a card with the question, the choices and the deadline. Only that person can answer it. When the deadline passes the request ends as <code>NoReply</code>, and the program takes the branch it declared.</p>
+          </div>
+          <div>
+            <h3>The page shows where it stands</h3>
+            <p>Under the block, xMatrix draws the program as a flow: each request already made and how it ended, who it is waiting on now, and every step it could take next.</p>
+          </div>
+          <div>
+            <h3>Change it while it runs</h3>
+            <p>Edit the block and save. The program is computed again over the same ledger, so nobody is asked twice for what they already answered. Remove the block and it stops.</p>
+          </div>
+        </div>
+        <p class="run-foot">How xMatrix implements the host is written down in <a href="https://github.com/LambdaLabsHQ/xmatrix/blob/main/docs/architecture/norn-host.md">its architecture notes</a>.</p>
       </div>
     </section>
 
