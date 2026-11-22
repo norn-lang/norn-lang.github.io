@@ -23,7 +23,7 @@ branch and fails when the committed `index.html` differs.
 
 `styles.css`, `404.html`, `robots.txt`, `sitemap.xml` and `og.png` are written
 by hand, as are the icons: `favicon.svg` is the source (the wordmark's n, its
-right leg running out to a moorit knot, a thread of fate), and `favicon.ico`,
+right leg hanging straight down into a moorit knot, like thread on a drop spindle), and `favicon.ico`,
 `apple-touch-icon.png`, `icon-192.png`, `icon-512.png` and
 `icon-maskable-512.png` are rendered from it, for `site.webmanifest`. `llms.txt` is a copy of the one in the language repository.
 
